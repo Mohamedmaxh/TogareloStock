@@ -3,12 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TogareloStock - منصة التجار</title>
-  <meta name="description" content="توجاريلو ستوك - منصة تسويق لتجار البالة والاستوكات في مصر والعالم العربي.">
+  <title>Facebook Design Clone</title>
   <style>
     body {
       margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: Arial, sans-serif;
       background-color: #f0f2f5;
     }
     .navbar {
@@ -18,24 +17,24 @@
       justify-content: space-between;
       padding: 10px 20px;
       border-bottom: 1px solid #ccc;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
     }
-    .logo img {
+    .navbar .logo {
       width: 40px;
       height: 40px;
       border-radius: 50%;
+      overflow: hidden;
+    }
+    .navbar .logo img {
+      width: 100%;
+      height: 100%;
       object-fit: cover;
     }
     .navbar-icons {
       display: flex;
+      gap: 20px;
       align-items: center;
-      flex-wrap: wrap;
-      gap: 15px;
     }
-    .navbar-icons img,
-    .navbar-icons a.call-button {
+    .navbar-icons img, .navbar-icons a.call-button {
       width: 24px;
       height: 24px;
       cursor: pointer;
@@ -47,16 +46,19 @@
     .navbar-icons img.add-icon {
       filter: brightness(0) saturate(100%) invert(35%) sepia(98%) saturate(2596%) hue-rotate(187deg) brightness(99%) contrast(102%);
     }
+    .search-container {
+      position: relative;
+    }
     .search-input {
-      padding: 5px 10px 5px 30px;
+      padding: 5px 30px 5px 10px;
       font-size: 14px;
       border: 1px solid #ccc;
       border-radius: 20px;
       outline: none;
+      width: 60px;
       background: url('https://img.icons8.com/ios-filled/20/000000/search--v1.png') no-repeat left center;
       background-size: 16px;
       background-position: 8px center;
-      width: 120px;
     }
     .dropdown {
       position: relative;
@@ -95,13 +97,27 @@
       opacity: 0.8;
     }
     .call-button {
-      display: none;
+      text-decoration: none;
+      font-size: 14px;
+      color: white;
+      background-color: #28a745;
+      padding: 5px 10px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
-    .dropdown-content a[href*="m.me"],
-    .dropdown-content a[href*="t.me"],
-    .dropdown-content a[href*="whatsapp"],
-    .dropdown-content a[href*="facebook.com"] {
-      display: none;
+    .dropdown-content a[href*="m.me"] {
+      background-color: #0084ff;
+      color: #ffffff;
+    }
+    .dropdown-content a[href*="t.me"] {
+      background-color: #0088cc;
+      color: #ffffff;
+    }
+    .dropdown-content a[href*="whatsapp"] {
+      background-color: #25d366;
+      color: #ffffff;
     }
     .dropdown-content a.location {
       background-color: #ffffff;
@@ -113,10 +129,6 @@
       color: #000;
       display: none;
     }
-    .main-content {
-      padding: 20px;
-      text-align: center;
-    }
     .footer {
       margin-top: 40px;
       padding: 20px;
@@ -125,42 +137,43 @@
       font-size: 18px;
       font-weight: bold;
       color: #333;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       border-top: 1px solid #ccc;
-    }
-    @media (max-width: 600px) {
-      .navbar-icons {
-        gap: 10px;
-      }
-      .search-input {
-        width: 100px;
-      }
     }
   </style>
   <script>
     function toggleDropdown(id, element) {
       document.querySelectorAll('.dropdown-content').forEach(menu => {
-        if (menu.id !== id) menu.style.display = 'none';
+        if (menu.id !== id) {
+          menu.style.display = 'none';
+        }
       });
       const dropdown = document.getElementById(id);
       dropdown.style.display = (dropdown.style.display === 'block') ? 'none' : 'block';
+
       setActiveIcon(element);
     }
+
     function setActiveIcon(element) {
       document.querySelectorAll('.navbar-icons img').forEach(img => img.classList.remove('active-icon'));
-      if (element.tagName === 'IMG') element.classList.add('active-icon');
+      element.classList.add('active-icon');
     }
+
     window.onclick = function(event) {
-      if (!event.target.closest('.dropdown')) {
+      if (!event.target.matches('.dropdown-toggle')) {
         document.querySelectorAll('.dropdown-content').forEach(menu => {
           menu.style.display = 'none';
         });
       }
     }
+
     function goToHome(icon) {
       setActiveIcon(icon);
       const label = document.getElementById('homeLabel');
       label.style.display = 'inline';
-      setTimeout(() => label.style.display = 'none', 1500);
+      setTimeout(() => {
+        label.style.display = 'none';
+      }, 1500);
     }
   </script>
 </head>
@@ -170,20 +183,50 @@
       <img src="https://i.imgur.com/2DLGm6x.jpg" alt="أسد">
     </div>
     <div class="navbar-icons">
-      <input type="text" class="search-input" placeholder="ابحث في الموقع...">
+      <a class="call-button" href="https://m.me/abueskander0" target="_blank">اتصال</a>
+      <div class="search-container">
+        <input type="text" class="search-input" placeholder="ابحث في الموقع...">
+      </div>
+      <div class="dropdown">
+        <img class="dropdown-toggle" onclick="toggleDropdown('messageDropdown', this)" src="https://img.icons8.com/ios-filled/24/000000/facebook-messenger.png" alt="Messenger">
+        <div id="messageDropdown" class="dropdown-content">
+          <a href="https://m.me/ch/AbaLFOYdGW3jm0Rj/" target="_blank">
+            <img src="https://img.icons8.com/ios-filled/24/ffffff/facebook-messenger.png" alt=""> ماسنجر
+          </a>
+          <a href="https://t.me/togareloctock" target="_blank">
+            <img src="https://img.icons8.com/ios-filled/24/ffffff/telegram-app.png" alt=""> تليجرام
+          </a>
+          <a href="https://chat.whatsapp.com/BfDGQ9PMmAaKOT3VheZkoX" target="_blank">
+            <img src="https://img.icons8.com/ios-filled/24/ffffff/whatsapp.png" alt=""> واتساب
+          </a>
+        </div>
+      </div>
       <div class="dropdown">
         <img class="dropdown-toggle add-icon" onclick="toggleDropdown('customDropdown', this)" src="https://img.icons8.com/ios-filled/24/0000ff/add.png" alt="Add">
         <div id="customDropdown" class="dropdown-content">
-          <a href="javascript:void(0);" class="location"><img src="https://img.icons8.com/ios-filled/24/000000/marker.png"> ابحث عن تاجر</a>
-          <a href="javascript:void(0);" class="location"><img src="https://img.icons8.com/ios-filled/24/000000/shop.png"> سوق الاستوك</a>
-          <a href="javascript:void(0);" class="location"><img src="https://img.icons8.com/ios-filled/24/000000/shopping-bag.png"> سوق البالة</a>
+          <a href="#" class="location">
+            <img src="https://img.icons8.com/ios-filled/24/000000/marker.png" alt=""> ابحث عن تاجر
+          </a>
+          <a href="#" class="location">
+            <img src="https://img.icons8.com/ios-filled/24/000000/shop.png" alt=""> سوق الاستوك
+          </a>
+          <a href="#" class="location">
+            <img src="https://img.icons8.com/ios-filled/24/000000/shopping-bag.png" alt=""> سوق البالة
+          </a>
         </div>
       </div>
       <div class="dropdown">
         <img class="dropdown-toggle" onclick="toggleDropdown('groupDropdown', this)" src="https://img.icons8.com/ios-filled/24/000000/groups.png" alt="Groups">
         <div id="groupDropdown" class="dropdown-content">
-          <a href="javascript:void(0);" class="location"><img src="https://img.icons8.com/ios-filled/24/000000/groups.png"> المنتدى</a>
-          <a href="javascript:void(0);" class="location"><img src="https://img.icons8.com/ios-filled/24/000000/hourglass.png"> موقع تحت الإنشاء</a>
+          <a href="https://www.facebook.com/share/g/1Ew2LzcaKM/" target="_blank">
+            <img src="https://img.icons8.com/ios-filled/24/ffffff/facebook.png" alt=""> فيس بوك
+          </a>
+          <a href="#" class="location">
+            <img src="https://img.icons8.com/ios-filled/24/000000/groups.png" alt=""> المنتدي
+          </a>
+          <a href="#" class="location">
+            <img src="https://img.icons8.com/ios-filled/24/000000/hourglass.png" alt=""> موقع تحت الإنشاء
+          </a>
         </div>
       </div>
       <div style="display: flex; align-items: center;">
@@ -193,11 +236,9 @@
     </div>
   </div>
 
-  <div class="main-content">
-    <h2>مرحبًا بك في توجاريلو ستوك</h2>
-    <p>هنا يمكنك التواصل مع التجار، عرض بضاعتك، والبحث عن عروض يومية مميزة للبالة والاستوك.</p>
+  <div class="footer">
+    TogareloStock
   </div>
 
-  <div class="footer">TogareloStock</div>
 </body>
 </html>
