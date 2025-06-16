@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TogareloStock - منصة التجار</title>
+  <meta name="description" content="توجاريلو ستوك - منصة تسويق لتجار البالة والاستوكات في مصر والعالم العربي.">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f0f2f5;
+    }
+    .navbar {
+      background-color: white;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 20px;
+      border-bottom: 1px solid #ccc;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    .logo img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    .navbar-icons {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+    .navbar-icons img,
+    .navbar-icons a.call-button {
+      width: 24px;
+      height: 24px;
+      cursor: pointer;
+      transition: filter 0.3s;
+    }
+    .navbar-icons img.active-icon {
+      filter: brightness(0);
+    }
+    .navbar-icons img.add-icon {
+      filter: brightness(0) saturate(100%) invert(35%) sepia(98%) saturate(2596%) hue-rotate(187deg) brightness(99%) contrast(102%);
+    }
+    .search-input {
+      padding: 5px 10px 5px 30px;
+      font-size: 14px;
+      border: 1px solid #ccc;
+      border-radius: 20px;
+      outline: none;
+      background: url('https://img.icons8.com/ios-filled/20/000000/search--v1.png') no-repeat left center;
+      background-size: 16px;
+      background-position: 8px center;
+      width: 120px;
+    }
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+    .dropdown-toggle {
+      cursor: pointer;
+    }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #fff;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+      z-index: 1;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+    .dropdown-content a {
+      color: black;
+      padding: 6px 12px;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      border-radius: 4px;
+      margin: 4px;
+      gap: 6px;
+      font-size: 13px;
+      background-color: #fff;
+    }
+    .dropdown-content a img {
+      width: 14px;
+      height: 14px;
+    }
+    .dropdown-content a:hover {
+      opacity: 0.8;
+    }
+    .call-button {
+      display: none;
+    }
+    .dropdown-content a[href*="m.me"],
+    .dropdown-content a[href*="t.me"],
+    .dropdown-content a[href*="whatsapp"],
+    .dropdown-content a[href*="facebook.com"] {
+      display: none;
+    }
+    .dropdown-content a.location {
+      background-color: #ffffff;
+      color: #000000;
+    }
+    #homeLabel {
+      font-size: 14px;
+      margin-right: 5px;
+      color: #000;
+      display: none;
+    }
+    .main-content {
+      padding: 20px;
+      text-align: center;
+    }
+    .footer {
+      margin-top: 40px;
+      padding: 20px;
+      text-align: center;
+      background-color: white;
+      font-size: 18px;
+      font-weight: bold;
+      color: #333;
+      border-top: 1px solid #ccc;
+    }
+    @media (max-width: 600px) {
+      .navbar-icons {
+        gap: 10px;
+      }
+      .search-input {
+        width: 100px;
+      }
+    }
+  </style>
+  <script>
+    function toggleDropdown(id, element) {
+      document.querySelectorAll('.dropdown-content').forEach(menu => {
+        if (menu.id !== id) menu.style.display = 'none';
+      });
+      const dropdown = document.getElementById(id);
+      dropdown.style.display = (dropdown.style.display === 'block') ? 'none' : 'block';
+      setActiveIcon(element);
+    }
+    function setActiveIcon(element) {
+      document.querySelectorAll('.navbar-icons img').forEach(img => img.classList.remove('active-icon'));
+      if (element.tagName === 'IMG') element.classList.add('active-icon');
+    }
+    window.onclick = function(event) {
+      if (!event.target.closest('.dropdown')) {
+        document.querySelectorAll('.dropdown-content').forEach(menu => {
+          menu.style.display = 'none';
+        });
+      }
+    }
+    function goToHome(icon) {
+      setActiveIcon(icon);
+      const label = document.getElementById('homeLabel');
+      label.style.display = 'inline';
+      setTimeout(() => label.style.display = 'none', 1500);
+    }
+  </script>
+</head>
+<body>
+  <div class="navbar">
+    <div class="logo">
+      <img src="https://i.imgur.com/2DLGm6x.jpg" alt="أسد">
+    </div>
+    <div class="navbar-icons">
+      <input type="text" class="search-input" placeholder="ابحث في الموقع...">
+      <div class="dropdown">
+        <img class="dropdown-toggle add-icon" onclick="toggleDropdown('customDropdown', this)" src="https://img.icons8.com/ios-filled/24/0000ff/add.png" alt="Add">
+        <div id="customDropdown" class="dropdown-content">
+          <a href="javascript:void(0);" class="location"><img src="https://img.icons8.com/ios-filled/24/000000/marker.png"> ابحث عن تاجر</a>
+          <a href="javascript:void(0);" class="location"><img src="https://img.icons8.com/ios-filled/24/000000/shop.png"> سوق الاستوك</a>
+          <a href="javascript:void(0);" class="location"><img src="https://img.icons8.com/ios-filled/24/000000/shopping-bag.png"> سوق البالة</a>
+        </div>
+      </div>
+      <div class="dropdown">
+        <img class="dropdown-toggle" onclick="toggleDropdown('groupDropdown', this)" src="https://img.icons8.com/ios-filled/24/000000/groups.png" alt="Groups">
+        <div id="groupDropdown" class="dropdown-content">
+          <a href="javascript:void(0);" class="location"><img src="https://img.icons8.com/ios-filled/24/000000/groups.png"> المنتدى</a>
+          <a href="javascript:void(0);" class="location"><img src="https://img.icons8.com/ios-filled/24/000000/hourglass.png"> موقع تحت الإنشاء</a>
+        </div>
+      </div>
+      <div style="display: flex; align-items: center;">
+        <span id="homeLabel">الرئيسية</span>
+        <img onclick="goToHome(this)" src="https://img.icons8.com/ios-filled/24/000000/home.png" alt="Home">
+      </div>
+    </div>
+  </div>
+
+  <div class="main-content">
+    <h2>مرحبًا بك في توجاريلو ستوك</h2>
+    <p>هنا يمكنك التواصل مع التجار، عرض بضاعتك، والبحث عن عروض يومية مميزة للبالة والاستوك.</p>
+  </div>
+
+  <div class="footer">TogareloStock</div>
+</body>
+</html>
